@@ -1,0 +1,30 @@
+.list {
+  list-style-type: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.high {
+  display: none;
+}
+
+span {
+  font-size: 24px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  padding-left: 20px;
+}

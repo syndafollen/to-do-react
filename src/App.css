@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background: #fbf2d5;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  color: #213547;
+}

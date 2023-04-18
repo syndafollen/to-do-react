@@ -1,0 +1,9 @@
+.tag {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+
+.tag > input{
+    margin-left: 8px;
+}

@@ -1,0 +1,7 @@
+.doneBtn {
+    padding: 0 0 0 12px;
+    display: flex;
+    border: none;
+    background-color: transparent;
+    fill: #394a51;
+  }

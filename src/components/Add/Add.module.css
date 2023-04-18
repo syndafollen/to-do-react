@@ -1,0 +1,35 @@
+.add {
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    height: 40px;
+    border-radius: 25px;
+    border: 2px solid #7fa99b;
+    outline: none;
+    font-size: 24px;
+    padding-left: 20px;
+    padding-right: 5px;
+    float: left;
+    display: block;
+  }
+
+  .addBtn {
+    padding: 0 0 0 12px;
+    display: flex;
+    border: none;
+    background-color: transparent;
+    fill: #394a51;
+  }
+
+  .addBtn svg:hover {
+    fill: #7fa99b;
+  }
+  
+  .addDisabled svg {
+    fill: #394a51;
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+  }
