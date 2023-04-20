@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, SetStateAction } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -13,15 +13,18 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [searchInputValue, setSearchInputValue] = useState("");
   const [todos, setTodos] = useState<TodoType[]>([]);
-  const [filteredTodos, setFilteredTodos] = useState<TodoType[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-  // const [checked, setChecked] = useState(true);
+  const [tagFilter, setTagFilter] = useState("");
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("event", event); // если галочку снимаем, то из tags должен пропадать тэг этого чекбокса
-    setTags([event?.target?.name]);
-    //defaultChecked
+    if (event?.target?.checked) {
+      setTags([...tags, event?.target?.name]);
+    } else {
+      setTags(tags.filter((tag) => tag !== event?.target?.name));
+    }
   };
+
+  console.log("tags:", tags);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -32,20 +35,10 @@ function App() {
       ...todos,
       { id: todos.length, text: inputValue, done: false, tags },
     ]);
-    setFilteredTodos([
-      ...todos,
-      { id: todos.length, text: inputValue, done: false, tags },
-    ]);
   };
 
-  console.log(todos);
-
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchInputValue(event.target.value);
-    const newTodos = todos.filter((todo) =>
-      todo.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setFilteredTodos(newTodos);
+    setSearchInputValue(event?.target?.value);
   };
 
   const handleToggle = (id: number) => {
@@ -57,11 +50,31 @@ function App() {
   };
 
   const handleDelete = (id: number) => {
-    console.log("todos:", todos);
-    console.log(todos.filter((todo) => !(todo.id === id)));
-
     setTodos(todos.filter((todo) => !(todo.id === id)));
   };
+
+  const handleTagClick = (tag: SetStateAction<string>) => {
+    console.log("clicked:", tag);
+    if (tagFilter === tag) {
+      setTagFilter("");
+    } else {
+      setTagFilter(tag);
+    }
+  };
+
+  const filterTodos = () => {
+    const filteredBySearch = todos.filter((todo) =>
+      todo.text.toLowerCase().includes(searchInputValue.toLowerCase())
+    );
+
+    if (tagFilter !== "") {
+      return filteredBySearch.filter((todo) => todo.tags.includes(tagFilter));
+    }
+
+    return filteredBySearch;
+  };
+
+  const filteredTodos = filterTodos();
 
   return (
     <div className="App">
@@ -77,11 +90,11 @@ function App() {
         handleAddTodo={handleAddTodo}
       />
       <List
-        todos={todos}
-        filteredTodos={filteredTodos}
+        todos={filteredTodos}
         searchInputValue={searchInputValue}
         handleToggle={handleToggle}
         handleDelete={handleDelete}
+        handleTagClick={handleTagClick}
       />
     </div>
   );
